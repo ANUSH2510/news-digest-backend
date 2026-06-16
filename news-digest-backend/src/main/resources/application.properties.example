@@ -1,0 +1,15 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/newsdigest
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+server.port=8080
+
+jwt.secret=your_jwt_secret_key_minimum_32_characters
+jwt.expiration=86400000
+
+newsapi.key=your_newsapi_key
+
+spring.application.name=news-digest-backend
