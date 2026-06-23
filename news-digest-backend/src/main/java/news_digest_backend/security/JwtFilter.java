@@ -20,20 +20,43 @@ public class JwtFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
+
         String authHeader = request.getHeader("Authorization");
+        System.out.println("=== JWT FILTER ===");
+        System.out.println("URL: " + request.getRequestURI());
+        System.out.println("Auth header: " + authHeader);
 
-        if(authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
+            System.out.println("Token found, validating...");
 
-            if(jwtUtil.validateToken(token)){
+            if (jwtUtil.validateToken(token)) {
                 String email = jwtUtil.extractEmail(token);
+                System.out.println("Token valid, email: " + email);
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, null,new ArrayList<>());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                email, null, new ArrayList<>());
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource()
+                                .buildDetails(request));
+                SecurityContextHolder.getContext()
+                        .setAuthentication(authentication);
+            } else {
+                System.out.println("Token invalid!");
             }
+        } else {
+            System.out.println("No Bearer token found!");
         }
+
         filterChain.doFilter(request, response);
     }
 }
+
+
+
+

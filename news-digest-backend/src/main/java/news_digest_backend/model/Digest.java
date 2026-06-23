@@ -18,7 +18,7 @@ public class Digest {
     private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "used_id")
+    @JoinColumn(name = "user_id" , nullable = true)
     private User user;
 
     @Column(nullable = false)
