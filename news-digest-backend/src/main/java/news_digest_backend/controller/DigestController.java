@@ -35,7 +35,7 @@ public class DigestController {
 
         List<Digest> feed = new ArrayList<>();
         for (UserTopic userTopic : userTopics) {
-            Long topicId = userTopic.getUser().getId();
+            Long topicId = userTopic.getTopic().getId();
             List<Digest> topicDigests = digestRepository.findByArticleTopicId(topicId);
             feed.addAll(topicDigests);
         }

@@ -21,7 +21,7 @@ public class Digest {
     @JoinColumn(name = "user_id" , nullable = true)
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String summary;
 
     @Column(name = "createdAt")

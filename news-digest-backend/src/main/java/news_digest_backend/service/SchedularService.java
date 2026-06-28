@@ -20,8 +20,8 @@ public class SchedularService {
         newsService.fetchAndSaveArticle();
         System.out.println("news fetch complete...");
 
-       // System.out.println("Starting summarization...");
-       //summarizerService.summarizeAllArticles();
-        //System.out.println("Summarization complete.");
+        System.out.println("Starting summarization...");
+        summarizerService.summarizeAllArticles();
+        System.out.println("Summarization complete.");
     }
 }
