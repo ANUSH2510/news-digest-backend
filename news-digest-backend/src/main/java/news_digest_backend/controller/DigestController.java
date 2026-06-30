@@ -42,12 +42,4 @@ public class DigestController {
         }
         return ResponseEntity.ok(feed);
     }
-    @Autowired
-    private SchedularService schedularService;
-
-    @GetMapping("/test/trigger-digest")
-    public String triggerDigest() {
-        schedularService.fetchNewsDaily();
-        return "Digest generation triggered manually";
-    }
 }
