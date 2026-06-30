@@ -6,6 +6,7 @@ import news_digest_backend.model.UserTopic;
 import news_digest_backend.repository.DigestRepository;
 import news_digest_backend.repository.UserRepository;
 import news_digest_backend.repository.UserTopicRepository;
+import news_digest_backend.service.SchedularService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -40,5 +41,13 @@ public class DigestController {
             feed.addAll(topicDigests);
         }
         return ResponseEntity.ok(feed);
+    }
+    @Autowired
+    private SchedularService schedularService;
+
+    @GetMapping("/test/trigger-digest")
+    public String triggerDigest() {
+        schedularService.fetchNewsDaily();
+        return "Digest generation triggered manually";
     }
 }
