@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/digest")
 
-
 public class DigestController {
 
     @Autowired
@@ -26,6 +25,14 @@ public class DigestController {
     private UserRepository userRepository;
     @Autowired
     private UserTopicRepository userTopicRepository;
+    @Autowired
+    private SchedularService schedularService;
+
+    @PostMapping("/trigger")
+    public ResponseEntity<String> triggerFetch() {
+        schedularService.fetchNewsDaily();
+        return ResponseEntity.ok("News fetch and summarization triggered.");
+    }
 
     @GetMapping
     public ResponseEntity<List<Digest>> getUserDigests(Authentication authentication) {
