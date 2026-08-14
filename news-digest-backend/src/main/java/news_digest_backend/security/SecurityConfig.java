@@ -54,23 +54,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public org.springframework.web.filter.CorsFilter corsFilter() {
-        org.springframework.web.cors.UrlBasedCorsConfigurationSource source =
-                new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
-        org.springframework.web.cors.CorsConfiguration config =
-                new org.springframework.web.cors.CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new org.springframework.web.filter.CorsFilter(source);
-    }
-
-    @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }
-
