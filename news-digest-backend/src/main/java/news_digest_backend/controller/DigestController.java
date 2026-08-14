@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/digest")
-@CrossOrigin(origins = "*")
+
 
 public class DigestController {
 
