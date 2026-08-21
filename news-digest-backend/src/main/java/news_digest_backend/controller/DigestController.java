@@ -8,6 +8,8 @@ import news_digest_backend.repository.UserRepository;
 import news_digest_backend.repository.UserTopicRepository;
 import news_digest_backend.service.SchedularService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +30,14 @@ public class DigestController {
     @Autowired
     private SchedularService schedularService;
 
+    @Value("${trigger.secret}")
+    private String triggerSecret;
+
     @PostMapping("/trigger")
-    public ResponseEntity<String> triggerFetch() {
+    public ResponseEntity<String> triggerFetch(@RequestHeader("X-Trigger-Secret") String providedSecret) {
+        if (!triggerSecret.equals(providedSecret)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid secret.");
+        }
         schedularService.fetchNewsDaily();
         return ResponseEntity.ok("News fetch and summarization triggered.");
     }
