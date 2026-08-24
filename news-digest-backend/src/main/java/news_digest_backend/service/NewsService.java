@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.time.LocalDate;
 
 @Service
 public class NewsService {
@@ -30,10 +31,11 @@ public class NewsService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     public void fetchAndSaveArticle(){
         List<Topic> topics = topicRepository.findAll();
+        String fromDate = LocalDate.now().minusDays(2).toString();
 
         for(Topic topic : topics){
             try{
-                String url = "https://newsapi.org/v2/everything?q="+topic.getName()+"&pageSize=10"+"&apiKey="+newsApiKey;
+                String url = "https://newsapi.org/v2/everything?q="+topic.getName()+"&from="+fromDate+"&sortBy=publishedAt&language=en&pageSize=10"+"&apiKey="+newsApiKey;
                 System.out.println("Calling URL"+url);
 
                 String response = restTemplate.getForObject(url, String.class);
