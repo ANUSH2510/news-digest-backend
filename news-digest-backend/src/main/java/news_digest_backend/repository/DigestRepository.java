@@ -10,4 +10,5 @@ public interface DigestRepository extends JpaRepository<Digest,Long> {
     List<Digest> findByUserId(Long id);
     List<Digest> findByArticleId(Long articleId);
     List<Digest> findByArticleTopicId(Long TopicId);
+    List<Digest> findByArticleTopicIdOrderByCreatedAtDesc(Long TopicId);
 }
