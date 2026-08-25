@@ -52,8 +52,9 @@ public class DigestController {
         List<Digest> feed = new ArrayList<>();
         for (UserTopic userTopic : userTopics) {
             Long topicId = userTopic.getTopic().getId();
-            List<Digest> topicDigests = digestRepository.findByArticleTopicId(topicId);
-            feed.addAll(topicDigests);
+            List<Digest> topicDigests = digestRepository.findByArticleTopicIdOrderByCreatedAtDesc(topicId);
+            int limit = Math.min(topicDigests.size(), 10);
+            feed.addAll(topicDigests.subList(0, limit));
         }
         return ResponseEntity.ok(feed);
     }
